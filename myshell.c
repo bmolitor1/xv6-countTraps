@@ -63,6 +63,9 @@ runcmd(struct cmd *cmd)
   struct seqcmd *scmd;
   struct paracmd *pacmd;
 
+  pid_t child_pid, wpid;
+  int status = 0;
+
   if(cmd == 0)
     exit(0);
 
@@ -91,10 +94,11 @@ runcmd(struct cmd *cmd)
 	scmd = (struct seqcmd*)cmd;
 	//printf("%s\n", scmd->before); //says before is a cmd, so do we send that to execute?
 	//printf("test message\n");
-	if(fork()==0){
+	if((child_pid=fork())==0){
 		runcmd(scmd->before);
 	}else{
-		wait(NULL);
+		//wait(NULL);
+		while((wpid=wait(&status))>0);
 		runcmd(scmd->after);
 	}
 	break;
@@ -102,7 +106,7 @@ runcmd(struct cmd *cmd)
   case '&':
 	pacmd = (struct paracmd*)cmd;
 	//printf("hello from & case\n");
-	if(fork()==0){
+	/*if((fork())==0){		//child_pid = 
 		if(fork()==0){
 			runcmd(pacmd->before);
 		}else{
@@ -111,8 +115,29 @@ runcmd(struct cmd *cmd)
 		}
 	}else{
 		//ok so here we wait for all children jobs to finish. how tho lol
-		while(wait(NULL)>0);
+		/*while(wait(NULL)>0);
+		//added this because of the problem in waiting
+		struct timespec ts;
+		ts.tv_sec = 500/1000;
+		ts.tv_nsec= 500000;
+		nanosleep(&ts,&ts);
+		while((wpid = wait(&status))>0);
+		if(fork()==0){
+			printf("");
+		}else{
+			wait(NULL);
+		}
+	}*/
+	if((child_pid=fork())==0){
+		if(fork()==0){
+			runcmd(pacmd->before);
+		}else{
+			runcmd(pacmd->after);
+		}
+	}else{
+		//while((wpid=wait(&status))>0);
 	}
+	while((wpid=wait(&status))>0);
 	break;
 
   case '>':
@@ -139,8 +164,8 @@ getcmd(char *buf, int nbuf)
   if (isatty(fileno(stdin))){
 	//added this because of the problem in waiting
 	struct timespec ts;
-	ts.tv_sec = 1000/1000;
-	ts.tv_nsec= 1000000;
+	ts.tv_sec = 500/1000;
+	ts.tv_nsec= 500000;
 	nanosleep(&ts,&ts);
     fprintf(stdout, "$CS450 ");
   }
