@@ -23,6 +23,28 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int getforkcount(void);
+int getexitcount(void);
+int getwaitcount(void);
+int getpipecount(void);
+int getreadcount(void);
+int getkillcount(void);
+int getexeccount(void);
+int getfstatcount(void);
+int getchdircount(void);
+int getdupcount(void);
+int getgetpidcount(void);
+int getsbrkcount(void);
+int getsleepcount(void);
+int getuptimecount(void);
+int getopencount(void);
+int getwritecount(void);
+int getmknodcount(void);
+int getunlinkcount(void);
+int getlinkcount(void);
+int getmkdircount(void);
+int getclosecount(void);
+int countTraps(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

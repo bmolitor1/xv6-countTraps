@@ -88,6 +88,30 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+	
+	//right here is the syscall count initializations
+	p->forkid = 0;
+	p->exitid = 0;
+	p->waitid = 0;
+	p->pipeid = 0;
+	p->readid = 0;
+	p->killid = 0;
+	p->execid = 0;
+	p->fstatid = 0;
+	p->chdirid = 0;
+	p->dupid = 0;
+	p->getpidid = 0;
+	p->sbrkid = 0;
+	p->sleepid = 0;
+	p->uptimeid = 0;
+	p->openid = 0;
+	p->writeid = 0;
+	p->mknodid = 0;
+	p->unlinkid = 0;
+	p->linkid = 0;
+	p->mkdirid = 0;
+	p->closeid = 0;
+
 
   release(&ptable.lock);
 

@@ -20,3 +20,26 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
+#define SYS_getforkcount   22
+#define SYS_getexitcount   23
+#define SYS_getwaitcount   24
+#define SYS_getpipecount   25
+#define SYS_getreadcount   26
+#define SYS_getkillcount   27
+#define SYS_getexeccount   28
+#define SYS_getfstatcount  29
+#define SYS_getchdircount  30
+#define SYS_getdupcount    31
+#define SYS_getgetpidcount 32
+#define SYS_getsbrkcount   33
+#define SYS_getsleepcount  34
+#define SYS_getuptimecount 35
+#define SYS_getopencount   36
+#define SYS_getwritecount  37
+#define SYS_getmknodcount  38
+#define SYS_getunlinkcount 39
+#define SYS_getlinkcount   40
+#define SYS_getmkdircount  41
+#define SYS_getclosecount  42
+#define SYS_countTraps     43
+

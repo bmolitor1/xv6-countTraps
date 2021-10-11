@@ -13,6 +13,29 @@
 // library system call function. The saved user %esp points
 // to a saved program counter, and then the first argument.
 
+//global counts
+	int forkid = 0;
+	int exitid = 0;
+	int waitid = 0;
+	int pipeid = 0;
+	int readid = 0;
+	int killid = 0;
+	int execid = 0;
+	int fstatid = 0;
+	int chdirid = 0;
+	int dupid = 0;
+	int getpidid = 0;
+	int sbrkid = 0;
+	int sleepid = 0;
+	int uptimeid = 0;
+	int openid = 0;
+	int writeid = 0;
+	int mknodid = 0;
+	int unlinkid = 0;
+	int linkid = 0;
+	int mkdirid = 0;
+	int closeid = 0;
+
 // Fetch the int at addr from the current process.
 int
 fetchint(uint addr, int *ip)
@@ -103,6 +126,28 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+extern int sys_getforkcount(void);
+extern int sys_getexitcount(void);
+extern int sys_getwaitcount(void);
+extern int sys_getpipecount(void);
+extern int sys_getreadcount(void);
+extern int sys_getkillcount(void);
+extern int sys_getexeccount(void);
+extern int sys_getfstatcount(void);
+extern int sys_getchdircount(void);
+extern int sys_getdupcount(void);
+extern int sys_getgetpidcount(void);
+extern int sys_getsbrkcount(void);
+extern int sys_getsleepcount(void);
+extern int sys_getuptimecount(void);
+extern int sys_getopencount(void);
+extern int sys_getwritecount(void);
+extern int sys_getmknodcount(void);
+extern int sys_getunlinkcount(void);
+extern int sys_getlinkcount(void);
+extern int sys_getmkdircount(void);
+extern int sys_getclosecount(void);
+extern int sys_countTraps(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -126,6 +171,28 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_getforkcount]    sys_getforkcount,
+[SYS_getexitcount]    sys_getexitcount,
+[SYS_getwaitcount]    sys_getwaitcount,
+[SYS_getpipecount]    sys_getpipecount,
+[SYS_getreadcount]    sys_getreadcount,
+[SYS_getkillcount]    sys_getkillcount,
+[SYS_getexeccount]    sys_getexeccount,
+[SYS_getfstatcount]   sys_getfstatcount,
+[SYS_getchdircount]   sys_getchdircount,
+[SYS_getdupcount]     sys_getdupcount,
+[SYS_getgetpidcount]  sys_getgetpidcount,
+[SYS_getsbrkcount]    sys_getsbrkcount,
+[SYS_getsleepcount]   sys_getsleepcount,
+[SYS_getuptimecount]  sys_getuptimecount,
+[SYS_getopencount]    sys_getopencount,
+[SYS_getwritecount]   sys_getwritecount,
+[SYS_getmknodcount]   sys_getmknodcount,
+[SYS_getunlinkcount]  sys_getunlinkcount,
+[SYS_getlinkcount]    sys_getlinkcount,
+[SYS_getmkdircount]   sys_getmkdircount,
+[SYS_getclosecount]   sys_getclosecount,
+[SYS_countTraps]      sys_countTraps,
 };
 
 void
@@ -135,6 +202,96 @@ syscall(void)
   struct proc *curproc = myproc();
 
   num = curproc->tf->eax;
+  
+  if(num==SYS_fork){
+  	forkid++;
+	}
+	if(num==SYS_exit){
+  	exitid++;
+	}
+	if(num==SYS_wait){
+  	waitid++;
+	}
+	if(num==SYS_pipe){
+  	pipeid++;
+	}
+	if(num==SYS_read){
+  	readid++;
+	}
+	if(num==SYS_kill){
+  	killid++;
+	}
+	if(num==SYS_exec){
+  	execid++;
+	}
+	if(num==SYS_fstat){
+  	fstatid++;
+	}
+	if(num==SYS_chdir){
+  	chdirid++;
+	}
+	if(num==SYS_dup){
+  	dupid++;
+	}
+	if(num==SYS_getpid){
+  	getpidid++;
+	}
+	if(num==SYS_sbrk){
+  	sbrkid++;
+	}
+	if(num==SYS_sleep){
+  	sleepid++;
+	}
+	if(num==SYS_uptime){
+  	uptimeid++;
+	}
+	if(num==SYS_open){
+  	openid++;
+	}
+	if(num==SYS_write){
+  	writeid++;
+	}
+	if(num==SYS_mknod){
+  	mknodid++;
+	}
+	if(num==SYS_unlink){
+  	unlinkid++;
+	}
+	if(num==SYS_link){
+  	linkid++;
+	}
+	if(num==SYS_mkdir){
+  	mkdirid++;
+	}
+	if(num==SYS_close){
+  	closeid++;
+	}
+	if(num==SYS_countTraps){
+		curproc->forkid = forkid;
+		curproc->exitid = exitid;
+		curproc->waitid = waitid;
+		curproc->pipeid = pipeid;
+		curproc->readid = readid;
+		curproc->killid = killid;
+		curproc->execid = execid;
+		curproc->fstatid=fstatid;
+		curproc->chdirid=chdirid;
+		curproc->dupid  =  dupid;
+		curproc->getpidid=getpidid;
+		curproc->sbrkid = sbrkid;
+		curproc->sleepid=sleepid;
+		curproc->uptimeid=uptimeid;
+		curproc->openid = openid;
+		curproc->writeid=writeid;
+		curproc->mknodid=mknodid;
+		curproc->unlinkid=unlinkid;
+		curproc->linkid = linkid;
+		curproc->mkdirid=mkdirid;
+		curproc->closeid=closeid;
+		//curproc->tf->eax = syscalls2[num](b);
+	}
+	
+
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
   } else {

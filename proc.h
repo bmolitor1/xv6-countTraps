@@ -49,6 +49,28 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+	//here are all of the counts we gotta keep track of. no worry, only 21 of them i think
+	int forkid;
+	int exitid;
+	int waitid;
+	int pipeid;
+	int readid;
+	int killid;
+	int execid;
+	int fstatid;
+	int chdirid;
+	int dupid;
+	int getpidid;
+	int sbrkid;
+	int sleepid;
+	int uptimeid;
+	int openid;
+	int writeid;
+	int mknodid;
+	int unlinkid;
+	int linkid;
+	int mkdirid;
+	int closeid;
 };
 
 // Process memory is laid out contiguously, low addresses first:
